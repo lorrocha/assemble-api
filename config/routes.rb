@@ -1,3 +1,12 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  resources :alerts
+  resources :users do
+    resources :teams
+    resources :alerts
+  end
+
+  resources :teams do
+    resources :users
+    resources :alerts
+  end
 end
