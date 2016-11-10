@@ -5,8 +5,9 @@ class TeamsController < ApplicationController
   def index
     @teams = Team.all
     @user = User.find(team_params["user_id"]) if team_params["user_id"]
+    result = @user ? @user.teams : @teams
 
-    render json: @user ? @user.teams : @teams
+    render json: result
   end
 
   # GET /teams/1
