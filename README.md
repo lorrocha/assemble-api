@@ -1,24 +1,20 @@
-# README
+## Assemble API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A Rails API for the Assemble mobile app.
 
-Things you may want to cover:
+To run:
 
-* Ruby version
+* clone the repo
+* run `bundle install`
+* run `rails db:setup` (I think)
+* run `rails server`
+* visit `localhost:3000`
 
-* System dependencies
+Check out the `routes.rb` file and controllers to see the available endpoints.
 
-* Configuration
+TODO:
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- [ ] put more thought into the design/structure of the API
+- [ ] add `POST`/`PUT`/`DELETE` endpoints (I believe it's all `GET` right now)
+- [ ] add authentication
+- [ ] deploy 🚀🚀🚀
