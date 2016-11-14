@@ -41,3 +41,28 @@ users.each_with_index { |user, index| user.teams << teams[index] }
 
 teams.first.users << users[4]
 teams.last.users << users[0]
+
+alerts = Alert.create([
+    {
+      alert_text: "halp yer doing me a frighten",
+      alert_location: "28.81182, -36.41932"
+    },
+    {
+      alert_text: "someone is following me",
+      alert_location: "12.63881, 164.51468"
+    },
+    {
+      alert_text: "come to the coffee shop quick",
+      alert_location: "-69.65461, -86.81789"
+    },
+    {
+      alert_text: "he's at my house again, come ASAP",
+      alert_location: "17.68777, 80.20643"
+    },
+    {
+      alert_text: "random text",
+      alert_location: "-27.44686, 108.54835"
+    }
+])
+
+teams.each_with_index { |team, index| team.alerts << alerts[index] }

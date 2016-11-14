@@ -3,17 +3,9 @@ class AlertsController < ApplicationController
 
   # GET /alerts
   def index
-    @alerts = Alert.all
-    @user = User.find(alert_params["user_id"]) if alert_params["user_id"]
     @team = Team.find(alert_params["team_id"]) if alert_params["team_id"]
 
-    if @user && @team
-      @alerts = @user.alerts.where(team_id: alert_params["team_id"])
-    elsif @team
-      @alerts = @team.alerts
-    elsif @user
-      @alerts = @user.alerts
-    end
+    @alerts = @team ? @team.alerts : Alert.all
 
     render json: @alerts
   end

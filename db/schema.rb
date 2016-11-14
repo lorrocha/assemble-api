@@ -14,10 +14,10 @@ ActiveRecord::Schema.define(version: 20161029160218) do
 
   create_table "alerts", force: :cascade do |t|
     t.string   "alert_text"
-    t.integer  "user_id"
+    t.string   "alert_location"
     t.integer  "team_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "teams", force: :cascade do |t|
