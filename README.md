@@ -6,7 +6,8 @@ To run:
 
 * clone the repo
 * run `bundle install`
-* run `rails db:setup` (I think)
+* run `rails db:migrate`
+* run `rails db:setup`
 * run `rails server`
 * visit `localhost:3000`
 
