@@ -30,11 +30,26 @@ users = User.create([
   ])
 
 teams = Team.create([
-    { team_name: "Degenderettes" },
-    { team_name: "Haxx0rZ" },
-    { team_name: "buddies" },
-    { team_name: "killa beez" },
-    { team_name: "people I know" }
+    {
+      team_name: "Degenderettes",
+      privacy: "private"
+    },
+    {
+      team_name: "Haxx0rZ",
+      privacy: "private"
+    },
+    {
+      team_name: "buddies",
+      privacy: "private"
+    },
+    {
+      team_name: "killa beez",
+      privacy: "public"
+    },
+    {
+      team_name: "people I know",
+      privacy: "public"
+    }
   ])
 
 users.each_with_index { |user, index| user.teams << teams[index] }
