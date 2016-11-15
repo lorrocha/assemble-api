@@ -7,12 +7,12 @@ class AlertsController < ApplicationController
 
     @alerts = @team ? @team.alerts : Alert.all
 
-    render json: @alerts
+    render json: { alerts: @alerts }
   end
 
   # GET /alerts/1
   def show
-    render json: @alert
+    render json: { alert: @alert}
   end
 
   # POST /alerts
