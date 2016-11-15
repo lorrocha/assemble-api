@@ -6,12 +6,12 @@ class UsersController < ApplicationController
     @users = User.all
     @team = Team.find(user_params["team_id"]) if user_params["team_id"]
 
-    render json: @team ? @team.users : @users
+    render json: { users: @team ? @team.users : @users }
   end
 
   # GET /users/1
   def show
-    render json: @user
+    render json: { user: @user }
   end
 
   # POST /users
