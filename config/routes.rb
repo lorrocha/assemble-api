@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get '/auth/:provider/callback' => 'sessions#create'
+
   resources :alerts
   resources :users do
     resources :teams
