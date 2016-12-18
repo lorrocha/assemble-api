@@ -21,7 +21,7 @@ gem 'puma', '~> 3.0'
 gem 'rack-cors'
 
 # Auth
-gem 'omniauth-google-oauth2'
+gem 'omniauth-google-oauth2', path: '../forkz/omniauth-google-oauth2/'
 
 gem 'ember-rails' # for Railsing with Ember
 
