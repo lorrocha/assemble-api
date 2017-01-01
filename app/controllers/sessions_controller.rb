@@ -1,7 +1,16 @@
 class SessionsController < Devise::SessionsController
-skip_before_filter :verify_authenticity_token
+  respond_to :json
 
   def create
-    binding.pry
+    super do |user|
+      if request.format.json?
+        data = {
+          token: user.authentication_token,
+          email: user.email,
+          user_id: user.id
+        }
+        render json: data, status: 201 and return
+      end
+    end
   end
 end

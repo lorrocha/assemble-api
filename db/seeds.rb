@@ -9,23 +9,33 @@
 users = User.create([
     { email: "admin@example.com",
       username: "hoppers13",
-      profile_text: "this is my profile"
+      profile_text: "this is my profile",
+      password: "zomggg",
+      authentication_token: "123"
     },
     { email: "user@email.com",
       username: "zer0c001",
-      profile_text: "hello"
+      profile_text: "hello",
+      password: "hello",
+      authentication_token: "456"
     },
     { email: "hello@user.gov",
       username: "hellobrother",
-      profile_text: "heyyyy brother"
+      profile_text: "heyyyy brother",
+      password: "password",
+      authentication_token: "789"
     },
     { email: "buster@aol.com",
       username: "buster",
-      profile_text: "is this where I type"
+      profile_text: "is this where I type",
+      password: "abc123",
+      authentication_token: "111"
     },
     { email: "wu@tang.org",
       username: "RZA",
-      profile_text: "killa beez"
+      profile_text: "killa beez",
+      password: "challah",
+      authentication_token: "333"
     },
   ])
 
