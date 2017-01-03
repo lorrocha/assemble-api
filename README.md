@@ -13,6 +13,8 @@ To run:
 
 Check out the `routes.rb` file and controllers to see the available endpoints.
 
+To get the app itself running, clone [the Ember app](https://github.com/lizbaillie/assemble), run `npm install` and `bower install`, then `ember server`. Navigate to `localhost:4200`.
+
 TODO:
 
 - [ ] put more thought into the design/structure of the API
