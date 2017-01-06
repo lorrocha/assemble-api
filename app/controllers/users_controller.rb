@@ -7,10 +7,17 @@ class UsersController < ApplicationController
 
   # GET /users
   def index
-    @users = User.all
-    @team = Team.find(user_params["team_id"]) if user_params["team_id"]
+    # a bit of a hack to return the current_user for Ember's session service
+    # apparently no way to hit `users#me` via Ember Data directly, only via AJAX
+    # we lose the auth headers from ESA if we don't go through Ember Data
+    if params[:current_user] == 'true'
+      render json: current_user
+    else
+      @users = User.all
+      @team = Team.find(user_params["team_id"]) if user_params["team_id"]
 
-    render json: { users: @team ? @team.users : @users }
+      render json: { users: @team ? @team.users : @users }
+    end
   end
 
   # GET /users/1
