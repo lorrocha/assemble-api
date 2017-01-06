@@ -6,8 +6,7 @@ class SessionsController < Devise::SessionsController
       if request.format.json?
         data = {
           token: user.authentication_token,
-          email: user.email,
-          user_id: user.id
+          email: user.email
         }
         render json: data, status: 201 and return
       end
