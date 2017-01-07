@@ -2,22 +2,15 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
 
   def me
-    render json: current_user
+    render json: { user: current_user }
   end
 
   # GET /users
   def index
-    # a bit of a hack to return the current_user for Ember's session service
-    # apparently no way to hit `users#me` via Ember Data directly, only via AJAX
-    # we lose the auth headers from ESA if we don't go through Ember Data
-    if params[:current_user] == 'true'
-      render json: current_user
-    else
-      @users = User.all
-      @team = Team.find(user_params["team_id"]) if user_params["team_id"]
+    @users = User.all
+    @team = Team.find(user_params["team_id"]) if user_params["team_id"]
 
-      render json: { users: @team ? @team.users : @users }
-    end
+    render json: { users: @team ? @team.users : @users }
   end
 
   # GET /users/1
