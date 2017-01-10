@@ -37,5 +37,9 @@ module AssembleApi
         resource '*', :headers => :any, :methods => [:get, :post, :options]
       end
     end
+
+    config.to_prepare do
+      DeviseController.respond_to :json, :html
+    end
   end
 end
