@@ -17,7 +17,5 @@ To get the app itself running, clone [the Ember app](https://github.com/lizbaill
 
 TODO:
 
-- [ ] put more thought into the design/structure of the API
-- [ ] add `POST`/`PUT`/`DELETE` endpoints (I believe it's all `GET` right now)
-- [ ] add authentication
+- [ ] get saving to work. Having some issues with rollback because I'm guessing the auth token is missing
 - [ ] deploy 🚀🚀🚀
