@@ -17,7 +17,7 @@ class AlertsController < ApplicationController
 
   # POST /alerts
   def create
-    @alert = Alert.new(alert_params)
+    @alert = Alert.new(alert_params[:alert])
 
     if @alert.save
       render json: @alert, status: :created, location: @alert
@@ -28,7 +28,7 @@ class AlertsController < ApplicationController
 
   # PATCH/PUT /alerts/1
   def update
-    if @alert.update(alert_params)
+    if @alert.update(alert_params[:alert])
       render json: @alert
     else
       render json: @alert.errors, status: :unprocessable_entity
@@ -48,6 +48,6 @@ class AlertsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def alert_params
-      params.permit(:alert_text, :user_id, :team_id)
+      params.permit(alert: [:alert_text, :team_id, :alert_location])
     end
 end
