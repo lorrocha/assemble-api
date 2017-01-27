@@ -1,7 +1,10 @@
 require 'test_helper'
 
 class AlertsControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   setup do
+    sign_in users(:alice)
     @alert = alerts(:one)
   end
 
