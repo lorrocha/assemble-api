@@ -17,5 +17,5 @@ To get the app itself running, clone [the Ember app](https://github.com/lizbaill
 
 TODO:
 
-- [ ] get saving to work. Having some issues with rollback because I'm guessing the auth token is missing
+- [ ] get signup to work :(
 - [ ] deploy 🚀🚀🚀
