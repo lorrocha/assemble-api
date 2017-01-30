@@ -2,6 +2,8 @@
 
 one:
   alert_text: MyString
+  team: one
 
 two:
   alert_text: MyString
+  team: two
