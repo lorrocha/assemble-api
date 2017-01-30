@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/lbaillie/assemble-api.svg?branch=master)](https://travis-ci.org/lbaillie/assemble-api)
+
 ## Assemble API
 
 A Rails API for the Assemble mobile app.
