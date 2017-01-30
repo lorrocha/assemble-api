@@ -5,6 +5,7 @@ class AlertsControllerTest < ActionDispatch::IntegrationTest
 
   setup do
     sign_in users(:alice)
+    @team = teams(:one)
     @alert = alerts(:one)
   end
 
@@ -14,8 +15,10 @@ class AlertsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create alert" do
+    params = { alert: { alert_text: "There's an alert going on", team_id: @team.id } }
+
     assert_difference('Alert.count') do
-      post alerts_url, params: { alert: { alert_text: @alert.alert_text } }, as: :json
+      post alerts_url, params: params, as: :json
     end
 
     assert_response 201
