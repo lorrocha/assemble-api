@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
+  before_action :ensure_correct_user, only: [:update, :destroy]
 
   def me
     render json: { user: current_user }
@@ -31,30 +32,26 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1
   def update
-    if current_user == @user
-      if @user.update(user_params)
-        render json: @user
-      else
-        render json: @user.errors, status: :unprocessable_entity
-      end
+    if @user.update(user_params)
+      render json: @user
     else
-      head :forbidden
+      render json: @user.errors, status: :unprocessable_entity
     end
   end
 
   # DELETE /users/1
   def destroy
-    if current_user == @user
-      @user.destroy
-    else
-      head :forbidden
-    end
+    @user.destroy
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])
+    end
+
+    def ensure_correct_user
+      head :forbidden unless current_user == @user
     end
 
     # Only allow a trusted parameter "white list" through.
