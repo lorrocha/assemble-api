@@ -37,9 +37,13 @@ class UserFlowsTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  # test "should not show user unless logged in" do
+  test "should not show user unless logged in" do
+    user = users(:alice)
 
-  # end
+    get user_url(user), as: :json
+
+    assert_response :unauthorized
+  end
 
   test "should update user" do
     user = users(:alice)
