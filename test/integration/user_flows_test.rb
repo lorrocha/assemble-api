@@ -54,6 +54,16 @@ class UserFlowsTest < ActionDispatch::IntegrationTest
     assert_response 200
   end
 
+  test "should not be able to update other user" do
+    alice = users(:alice)
+    bob = users(:bob)
+    sign_in alice
+
+    patch user_url(bob), params: { user: { email: "new.email@example.com" } }, as: :json
+
+    assert_response :forbidden
+  end
+
   test "should destroy user" do
     user = users(:alice)
     sign_in user
