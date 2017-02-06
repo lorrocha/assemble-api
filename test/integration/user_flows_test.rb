@@ -49,7 +49,7 @@ class UserFlowsTest < ActionDispatch::IntegrationTest
     user = users(:alice)
     sign_in user
 
-    patch user_url(user), params: { user: { email: user.email } }, as: :json
+    patch user_url(user), params: { user: { email: "new.email@example.com" } }, as: :json
 
     assert_response 200
   end
