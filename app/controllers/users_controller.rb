@@ -44,7 +44,11 @@ class UsersController < ApplicationController
 
   # DELETE /users/1
   def destroy
-    @user.destroy
+    if current_user == @user
+      @user.destroy
+    else
+      head :forbidden
+    end
   end
 
   private

@@ -74,4 +74,16 @@ class UserFlowsTest < ActionDispatch::IntegrationTest
 
     assert_response 204
   end
+
+  test "should not be able to destroy other user" do
+    alice = users(:alice)
+    bob = users(:bob)
+    sign_in alice
+
+    assert_difference("User.count", 0) do
+      delete user_url(bob), as: :json
+    end
+
+    assert_response :forbidden
+  end
 end
