@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
+  before_action :ensure_correct_user, only: [:update, :destroy]
 
   def me
     render json: { user: current_user }
@@ -36,6 +37,10 @@ class UsersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])
+    end
+
+    def ensure_correct_user
+      head :forbidden unless current_user == @user
     end
 
     # Only allow a trusted parameter "white list" through.
