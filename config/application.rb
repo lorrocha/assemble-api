@@ -28,13 +28,13 @@ module AssembleApi
     config.api_only = true
     config.action_dispatch.default_headers = {
       'Access-Control-Allow-Origin' => 'http://localhost:4200',
-      'Access-Control-Request-Method' => %w{GET POST OPTIONS}.join(",")
+      'Access-Control-Request-Method' => %w{GET POST PUT PATCH DELETE OPTIONS}.join(",")
     }
 
     config.middleware.insert_before 0, "Rack::Cors" do
       allow do
         origins '*'
-        resource '*', :headers => :any, :methods => [:get, :post, :options]
+        resource '*', :headers => :any, :methods => [:get, :post, :put, :patch, :delete, :options]
       end
     end
 
