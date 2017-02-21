@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   # GET /users
   def index
     @users = User.all
-    @team = Team.find(user_params["team_id"]) if user_params["team_id"]
+    @team = Team.find(params["team_id"]) if params["team_id"]
 
     render json: { users: @team ? @team.users : @users }
   end
@@ -45,6 +45,6 @@ class UsersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.permit(:email, :username, :profile_text, :team_id, :provider, :uid)
+      params.require(:user).permit(:email, :username, :profile_text, :team_id, :provider, :uid)
     end
 end
