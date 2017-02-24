@@ -3,11 +3,15 @@ require 'test_helper'
 class UserFlowsTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
-  test "should get index" do
+  test "should get index of users on the requester's teams" do
     sign_in users(:alice)
 
     get users_url, as: :json
 
+    ids = response.parsed_body["data"].map { |u| u["id"] }
+    assert_includes(ids, users(:alice).id.to_s)
+    assert_includes(ids, users(:bob).id.to_s)
+    assert_not_includes(ids, users(:carol).id)
     assert_response :success
   end
 

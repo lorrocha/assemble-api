@@ -8,7 +8,7 @@ class UsersController < ApplicationController
 
   # GET /users
   def index
-    @users = User.all
+    @users = User.joins(:teams).where(:teams => {:id => current_user.teams})
     @team = Team.find(params["team_id"]) if params["team_id"]
 
     render json: @team ? @team.users : @users
