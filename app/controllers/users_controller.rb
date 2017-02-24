@@ -16,7 +16,11 @@ class UsersController < ApplicationController
 
   # GET /users/1
   def show
-    render json: @user
+    if (current_user.teams & @user.teams).any?
+      render json: @user
+    else
+      head :forbidden
+    end
   end
 
   # PATCH/PUT /users/1

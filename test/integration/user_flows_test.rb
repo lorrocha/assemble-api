@@ -28,13 +28,20 @@ class UserFlowsTest < ActionDispatch::IntegrationTest
     assert_response 201
   end
 
-  test "should show user" do
-    user = users(:alice)
-    sign_in user
+  test "should show user if on the same team" do
+    sign_in users(:alice)
 
-    get user_url(user), as: :json
+    get user_url(users(:bob)), as: :json
 
     assert_response :success
+  end
+
+  test "should not show user from a different team" do
+    sign_in users(:alice)
+
+    get user_url(users(:carol)), as: :json
+
+    assert_response :forbidden
   end
 
   test "should not show user unless logged in" do
