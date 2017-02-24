@@ -11,3 +11,7 @@ alice:
 bob:
   email: bob@example.com
   teams: [one]
+
+carol:
+  email: carol@example.com
+  teams: [two]

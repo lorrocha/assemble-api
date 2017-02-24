@@ -17,7 +17,7 @@ class UserFlowsTest < ActionDispatch::IntegrationTest
     assert_difference('User.count') do
       params = {
         user: {
-          email: "carol@example.com",
+          email: "wendy@example.com",
           password: "password",
           password_confirmation: "password"
         }
