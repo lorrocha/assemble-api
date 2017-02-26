@@ -7,17 +7,17 @@ class AlertsController < ApplicationController
 
     @alerts = @team ? @team.alerts : Alert.all
 
-    render json: { alerts: @alerts }
+    render json: @alerts
   end
 
   # GET /alerts/1
   def show
-    render json: { alert: @alert}
+    render json: @alert
   end
 
   # POST /alerts
   def create
-    @alert = Alert.new(alert_params[:alert])
+    @alert = Alert.new(alert_params["alert"])
 
     if @alert.save
       render json: @alert, status: :created, location: @alert
@@ -28,7 +28,7 @@ class AlertsController < ApplicationController
 
   # PATCH/PUT /alerts/1
   def update
-    if @alert.update(alert_params[:alert])
+    if @alert.update(alert_params["alert"])
       render json: @alert
     else
       render json: @alert.errors, status: :unprocessable_entity

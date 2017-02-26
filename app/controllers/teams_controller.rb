@@ -7,12 +7,12 @@ class TeamsController < ApplicationController
     @user = User.find(team_params["user_id"]) if team_params["user_id"]
     result = @user ? @user.teams : @teams
 
-    render json: { teams: result }
+    render json: @teams
   end
 
   # GET /teams/1
   def show
-    render json: { team: @team }
+    render json: @team
   end
 
   # POST /teams
