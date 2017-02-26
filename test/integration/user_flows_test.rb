@@ -16,8 +16,6 @@ class UserFlowsTest < ActionDispatch::IntegrationTest
   end
 
   test "should create user" do
-    sign_in users(:alice)
-
     assert_difference('User.count') do
       params = {
         user: {
