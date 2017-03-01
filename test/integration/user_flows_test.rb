@@ -15,6 +15,27 @@ class UserFlowsTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should get index of users scoped to specific team" do
+    sign_in users(:bob)
+
+    get team_users_url(teams(:one)), as: :json
+
+    ids = response.parsed_body["data"].map { |u| u["id"] }
+    assert_includes(ids, users(:alice).id.to_s)
+    assert_includes(ids, users(:bob).id.to_s)
+    assert_not_includes(ids, users(:carol).id.to_s)
+    assert_response :success
+  end
+
+  test "should not get index of other team's users" do
+    sign_in users(:alice)
+
+    get team_users_url(teams(:two)), as: :json
+
+    assert_empty(response.parsed_body["data"])
+    assert_response :success
+  end
+
   test "should create user" do
     assert_difference('User.count') do
       params = {
