@@ -32,8 +32,7 @@ class UserFlowsTest < ActionDispatch::IntegrationTest
 
     get team_users_url(teams(:two)), as: :json
 
-    assert_empty(response.parsed_body["data"])
-    assert_response :success
+    assert_response :forbidden
   end
 
   test "should create user" do

@@ -8,12 +8,16 @@ class UsersController < ApplicationController
 
   # GET /users
   def index
-    @users = if params["team_id"]
-               current_user.teammates(params["team_id"])
-             else
-               current_user.teammates
-             end
-    render json: @users
+    if params["team_id"]
+      team = Team.find(params["team_id"])
+      if current_user.teams.include?(team)
+        render json: team.users
+      else
+        head :forbidden
+      end
+    else
+      render json: current_user.teammates
+    end
   end
 
   # GET /users/1
