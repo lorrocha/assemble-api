@@ -18,10 +18,8 @@ class User < ApplicationRecord
     end
   end
 
-  def teammates(team_id = nil)
-    ts = teams
-    ts = ts.where(:id => team_id) if team_id
-    self.class.on_teams(ts)
+  def teammates
+    self.class.on_teams(teams)
   end
 
   private
