@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :ensure_correct_user, only: [:update, :destroy]
 
   def me
-    render json: { user: current_user }
+    render json: current_user
   end
 
   # GET /users
@@ -11,12 +11,12 @@ class UsersController < ApplicationController
     @users = User.all
     @team = Team.find(params["team_id"]) if params["team_id"]
 
-    render json: { users: @team ? @team.users : @users }
+    render json: @team ? @team.users : @users
   end
 
   # GET /users/1
   def show
-    render json: { user: @user }
+    render json: @user
   end
 
   # PATCH/PUT /users/1

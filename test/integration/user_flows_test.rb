@@ -50,8 +50,7 @@ class UserFlowsTest < ActionDispatch::IntegrationTest
     sign_in user
 
     patch user_url(user), params: { user: { email: "new.email@example.com" } }, as: :json
-
-    assert_equal "new.email@example.com", response.parsed_body["email"]
+    assert_equal "new.email@example.com", response.parsed_body["data"]["attributes"]["email"]
     assert_response 200
   end
 
