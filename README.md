@@ -19,5 +19,5 @@ To get the app itself running, clone [the Ember app](https://github.com/lizbaill
 
 TODO:
 
-- [ ] get signup to work :(
+- [ ] Add all the features on the [Ember side](https://github.com/lizbaillie/assemble) and make sure things here work accordingly
 - [ ] deploy 🚀🚀🚀
