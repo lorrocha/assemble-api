@@ -8,15 +8,25 @@ class UsersController < ApplicationController
 
   # GET /users
   def index
-    @users = User.all
-    @team = Team.find(params["team_id"]) if params["team_id"]
-
-    render json: @team ? @team.users : @users
+    if params["team_id"]
+      team = Team.find(params["team_id"])
+      if current_user.teams.include?(team)
+        render json: team.users
+      else
+        head :forbidden
+      end
+    else
+      render json: current_user.teammates
+    end
   end
 
   # GET /users/1
   def show
-    render json: @user
+    if (current_user.teams & @user.teams).any?
+      render json: @user
+    else
+      head :forbidden
+    end
   end
 
   # PATCH/PUT /users/1

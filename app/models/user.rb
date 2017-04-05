@@ -8,10 +8,18 @@ class User < ApplicationRecord
 
   before_save :ensure_authentication_token
 
+  def self.on_teams(teams)
+    joins(:teams).where(:teams => {:id => teams})
+  end
+
   def ensure_authentication_token
     if authentication_token.blank?
       self.authentication_token = generate_authentication_token
     end
+  end
+
+  def teammates
+    self.class.on_teams(teams)
   end
 
   private

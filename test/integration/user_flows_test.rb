@@ -3,21 +3,43 @@ require 'test_helper'
 class UserFlowsTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
-  test "should get index" do
+  test "should get index of users on the requester's teams" do
     sign_in users(:alice)
 
     get users_url, as: :json
 
+    ids = response.parsed_body["data"].map { |u| u["id"] }
+    assert_includes(ids, users(:alice).id.to_s)
+    assert_includes(ids, users(:bob).id.to_s)
+    assert_not_includes(ids, users(:carol).id)
     assert_response :success
   end
 
-  test "should create user" do
+  test "should get index of users scoped to specific team" do
+    sign_in users(:bob)
+
+    get team_users_url(teams(:one)), as: :json
+
+    ids = response.parsed_body["data"].map { |u| u["id"] }
+    assert_includes(ids, users(:alice).id.to_s)
+    assert_includes(ids, users(:bob).id.to_s)
+    assert_not_includes(ids, users(:carol).id.to_s)
+    assert_response :success
+  end
+
+  test "should not get index of other team's users" do
     sign_in users(:alice)
 
+    get team_users_url(teams(:two)), as: :json
+
+    assert_response :forbidden
+  end
+
+  test "should create user" do
     assert_difference('User.count') do
       params = {
         user: {
-          email: "carol@example.com",
+          email: "wendy@example.com",
           password: "password",
           password_confirmation: "password"
         }
@@ -28,13 +50,20 @@ class UserFlowsTest < ActionDispatch::IntegrationTest
     assert_response 201
   end
 
-  test "should show user" do
-    user = users(:alice)
-    sign_in user
+  test "should show user if on the same team" do
+    sign_in users(:alice)
 
-    get user_url(user), as: :json
+    get user_url(users(:bob)), as: :json
 
     assert_response :success
+  end
+
+  test "should not show user from a different team" do
+    sign_in users(:alice)
+
+    get user_url(users(:carol)), as: :json
+
+    assert_response :forbidden
   end
 
   test "should not show user unless logged in" do
