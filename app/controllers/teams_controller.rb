@@ -3,9 +3,8 @@ class TeamsController < ApplicationController
 
   # GET /teams
   def index
-    @teams = Team.all
     @user = User.find(team_params["user_id"]) if team_params["user_id"]
-    result = @user ? @user.teams : @teams
+    @teams = @user ? @user.teams : Team.all
 
     render json: @teams
   end

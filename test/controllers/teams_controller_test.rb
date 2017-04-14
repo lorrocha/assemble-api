@@ -4,12 +4,26 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    sign_in users(:alice)
+    @user = users(:alice)
     @team = teams(:one)
+    sign_in @user
   end
 
   test "should get index" do
     get teams_url, as: :json
+
+    team_ids = response.parsed_body["data"].map { |d| d["id"] }
+    assert_includes(team_ids, teams(:one).id.to_s)
+    assert_includes(team_ids, teams(:two).id.to_s)
+    assert_response :success
+  end
+
+  test "should filter index by user" do
+    get user_teams_url(@user)
+
+    team_ids = response.parsed_body["data"].map { |d| d["id"] }
+    assert_includes(team_ids, teams(:one).id.to_s)
+    assert_not_includes(team_ids, teams(:two).id.to_s)
     assert_response :success
   end
 
