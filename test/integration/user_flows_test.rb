@@ -78,7 +78,13 @@ class UserFlowsTest < ActionDispatch::IntegrationTest
     user = users(:alice)
     sign_in user
 
-    patch user_url(user), params: { data: { attributes: { email: "new.email@example.com" } } }, as: :json
+    patch(
+      user_url(user),
+      params: { data: { attributes: { email: "new.email@example.com" } } },
+      headers: { "CONTENT-TYPE" => "application/vnd.api+json" },
+      as: :json
+    )
+
     assert_equal "new.email@example.com", response.parsed_body["data"]["attributes"]["email"]
     assert_response 200
   end
@@ -88,7 +94,12 @@ class UserFlowsTest < ActionDispatch::IntegrationTest
     bob = users(:bob)
     sign_in alice
 
-    patch user_url(bob), params: { data: { attributes: { email: "new.email@example.com" } } }, as: :json
+    patch(
+      user_url(bob),
+      params: { data: { attributes: { email: "new.email@example.com" } } },
+      headers: { "CONTENT-TYPE" => "application/vnd.api+json" },
+      as: :json
+    )
 
     assert_response :forbidden
   end
