@@ -29,7 +29,7 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create team" do
     assert_difference('Team.count') do
-      post teams_url, params: { team: { team_name: @team.team_name } }, as: :json
+      post teams_url, params: { data: { attributes: { team_name: @team.team_name } } }, as: :json
     end
 
     assert_response 201
