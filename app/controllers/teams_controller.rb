@@ -49,7 +49,7 @@ class TeamsController < ApplicationController
     def team_params
       ActiveModelSerializers::Deserialization.jsonapi_parse(
         params,
-        only: [:"team-name", :user_id]
+        only: [:"team-name"]
       )
     end
 end
