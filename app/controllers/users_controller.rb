@@ -57,7 +57,7 @@ class UsersController < ApplicationController
     def user_params
       ActiveModelSerializers::Deserialization.jsonapi_parse(
         params,
-        only: [:email, :username, :"profile-text", :team_id, :provider, :uid]
+        only: [:email, :username, :"profile-text", :provider, :uid]
       )
     end
 end
