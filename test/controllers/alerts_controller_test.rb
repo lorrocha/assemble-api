@@ -15,10 +15,10 @@ class AlertsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create alert" do
-    params = { alert: { alert_text: "There's an alert going on", team_id: @team.id } }
+    params = { data: { attributes: { alert_text: "There's an alert going on" } } }
 
     assert_difference('Alert.count') do
-      post alerts_url, params: params, as: :json
+      post team_alerts_url(@team), params: params, as: :json
     end
 
     assert_response 201
@@ -30,7 +30,7 @@ class AlertsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update alert" do
-    patch alert_url(@alert), params: { alert: { alert_text: @alert.alert_text } }, as: :json
+    patch alert_url(@alert), params: { data: { attributes: { alert_text: @alert.alert_text } } }, as: :json
     assert_response 200
   end
 
