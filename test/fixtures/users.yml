@@ -6,12 +6,15 @@
 #
 alice:
   email: alice@example.com
+  profile_text: "This is Alice's profile"
   teams: [one]
 
 bob:
   email: bob@example.com
+  profile_text: "This is Bob's profile"
   teams: [one]
 
 carol:
   email: carol@example.com
+  profile_text: "This is Carol's profile"
   teams: [two]

@@ -50,6 +50,17 @@ class UserFlowsTest < ActionDispatch::IntegrationTest
     assert_response 201
   end
 
+  test "should transform keys to dash-case" do
+    sign_in users(:alice)
+
+    get user_url(users(:alice)), as: :json
+
+    actual = response.parsed_body["data"]["attributes"]["profile-text"]
+    expected = "This is Alice's profile"
+    assert_equal(expected, actual)
+    assert_response :success
+  end
+
   test "should show user if on the same team" do
     sign_in users(:alice)
 
