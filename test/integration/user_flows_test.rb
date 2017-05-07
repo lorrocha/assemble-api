@@ -100,6 +100,23 @@ class UserFlowsTest < ActionDispatch::IntegrationTest
     assert_response 200
   end
 
+  test "should accept dash-case when updating" do
+    user = users(:alice)
+    sign_in user
+
+    patch(
+      user_url(user),
+      params: { data: { attributes: { "profile-text" => "This is Alice's updated profile" } } },
+      headers: { "CONTENT-TYPE" => "application/vnd.api+json" },
+      as: :json
+    )
+
+    actual = response.parsed_body["data"]["attributes"]["profile-text"]
+    expected = "This is Alice's updated profile"
+    assert_equal(expected, actual)
+    assert_response 200
+  end
+
   test "should not be able to update other user" do
     alice = users(:alice)
     bob = users(:bob)
