@@ -41,7 +41,11 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update team" do
-    patch team_url(@team), params: { team: { team_name: @team.team_name } }, as: :json
+    patch team_url(@team), params: { data: { attributes: { "team-name" => "New Team Name" } } }, as: :json
+
+    actual = response.parsed_body["data"]["attributes"]["team-name"]
+    expected = "New Team Name"
+    assert_equal(expected, actual)
     assert_response 200
   end
 
