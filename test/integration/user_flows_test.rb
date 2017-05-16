@@ -50,6 +50,17 @@ class UserFlowsTest < ActionDispatch::IntegrationTest
     assert_response 201
   end
 
+  test "should transform keys to dash-case" do
+    sign_in users(:alice)
+
+    get user_url(users(:alice)), as: :json
+
+    actual = response.parsed_body["data"]["attributes"]["profile-text"]
+    expected = "This is Alice's profile"
+    assert_equal(expected, actual)
+    assert_response :success
+  end
+
   test "should show user if on the same team" do
     sign_in users(:alice)
 
@@ -78,8 +89,31 @@ class UserFlowsTest < ActionDispatch::IntegrationTest
     user = users(:alice)
     sign_in user
 
-    patch user_url(user), params: { user: { email: "new.email@example.com" } }, as: :json
+    patch(
+      user_url(user),
+      params: { data: { attributes: { email: "new.email@example.com" } } },
+      headers: { "CONTENT-TYPE" => "application/vnd.api+json" },
+      as: :json
+    )
+
     assert_equal "new.email@example.com", response.parsed_body["data"]["attributes"]["email"]
+    assert_response 200
+  end
+
+  test "should accept dash-case when updating" do
+    user = users(:alice)
+    sign_in user
+
+    patch(
+      user_url(user),
+      params: { data: { attributes: { "profile-text" => "This is Alice's updated profile" } } },
+      headers: { "CONTENT-TYPE" => "application/vnd.api+json" },
+      as: :json
+    )
+
+    actual = response.parsed_body["data"]["attributes"]["profile-text"]
+    expected = "This is Alice's updated profile"
+    assert_equal(expected, actual)
     assert_response 200
   end
 
@@ -88,7 +122,12 @@ class UserFlowsTest < ActionDispatch::IntegrationTest
     bob = users(:bob)
     sign_in alice
 
-    patch user_url(bob), params: { user: { email: "new.email@example.com" } }, as: :json
+    patch(
+      user_url(bob),
+      params: { data: { attributes: { email: "new.email@example.com" } } },
+      headers: { "CONTENT-TYPE" => "application/vnd.api+json" },
+      as: :json
+    )
 
     assert_response :forbidden
   end

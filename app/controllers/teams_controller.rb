@@ -3,7 +3,7 @@ class TeamsController < ApplicationController
 
   # GET /teams
   def index
-    @user = User.find(team_params["user_id"]) if team_params["user_id"]
+    @user = User.find(params["user_id"]) if params["user_id"]
     @teams = @user ? @user.teams : Team.all
 
     render json: @teams
@@ -47,6 +47,9 @@ class TeamsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def team_params
-      params.permit(:team_name, :user_id)
+      ActiveModelSerializers::Deserialization.jsonapi_parse(
+        params,
+        only: [:"team-name"]
+      )
     end
 end
