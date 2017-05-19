@@ -10,7 +10,7 @@ class AlertsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index" do
-    get alerts_url, as: :json
+    get team_alerts_url(@team), as: :json
     assert_response :success
   end
 

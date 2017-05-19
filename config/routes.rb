@@ -2,8 +2,6 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { sessions: 'sessions' }, defaults: { format: :json }
   get 'users/me' => 'users#me', as: 'current_user'
 
-  resources :alerts, only: :index
-
   resources :users, except: :create do
     resources :teams
   end
