@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get 'users/me' => 'users#me', as: 'current_user'
 
   resources :users, except: :create do
-    resources :teams
+    resources :teams, only: :index
   end
 
   resources :teams do
