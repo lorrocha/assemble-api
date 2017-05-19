@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   end
 
   resources :teams do
-    resources :users, except: :create
+    resources :users, only: :index
     resources :alerts, shallow: true
   end
 end
