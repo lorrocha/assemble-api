@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_and_belongs_to_many :teams, dependent: :destroy
+  has_many :alerts, through: :teams
 
   before_save :ensure_authentication_token
 
@@ -20,6 +21,10 @@ class User < ApplicationRecord
 
   def teammates
     self.class.on_teams(teams)
+  end
+
+  def has_alert?(alert)
+    alerts.where(id: alert.id).present?
   end
 
   private

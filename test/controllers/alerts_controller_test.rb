@@ -29,6 +29,12 @@ class AlertsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should show forbidden if the user is not associated with the team for the alert" do
+    bad_alert = alerts(:two)
+    get alert_url(bad_alert), as: :json
+    assert_response :forbidden
+  end
+
   test "should update alert" do
     patch alert_url(@alert), params: { data: { attributes: { alert_text: @alert.alert_text } } }, as: :json
     assert_response 200

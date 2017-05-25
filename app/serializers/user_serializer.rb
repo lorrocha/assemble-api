@@ -5,4 +5,5 @@ class UserSerializer < ActiveModel::Serializer
 
   has_many :teams
   belongs_to :teams
+  has_many :alerts
 end

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   resources :users, except: :create do
     resources :teams, only: :index
+    resources :alerts, only: :index
   end
 
   resources :teams do

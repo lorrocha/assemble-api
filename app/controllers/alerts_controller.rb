@@ -5,14 +5,26 @@ class AlertsController < ApplicationController
   def index
     @team = Team.find(alert_params["team_id"]) if alert_params["team_id"]
 
-    @alerts = @team ? @team.alerts : Alert.all
+    @alerts =
+      case
+      when @team
+        @team.alerts
+      when current_user
+        current_user.alerts
+      else
+        Alert.all
+      end
 
     render json: @alerts
   end
 
   # GET /alerts/1
   def show
-    render json: @alert
+    if !current_user.has_alert? @alert
+      head :forbidden
+    else
+      render json: @alert
+    end
   end
 
   # POST /alerts
