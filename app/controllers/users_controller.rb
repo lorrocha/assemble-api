@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   def index
     if params["team_id"]
       team = Team.find(params["team_id"])
-      if current_user.teams.include?(team)
+      if current_user.has_team? team
         render json: team.users
       else
         head :forbidden

@@ -5,5 +5,5 @@ one:
   team: one
 
 two:
-  alert_text: MyString
+  alert_text: MySecondString
   team: two

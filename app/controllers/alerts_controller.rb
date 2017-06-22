@@ -7,12 +7,12 @@ class AlertsController < ApplicationController
 
     @alerts =
       case
-      when @team
+      when @team && current_user.has_team?(@team)
         @team.alerts
       when current_user
         current_user.alerts
       else
-        Alert.all
+        Alert.none
       end
 
     render json: @alerts

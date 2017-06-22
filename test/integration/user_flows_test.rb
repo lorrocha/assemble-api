@@ -11,7 +11,7 @@ class UserFlowsTest < ActionDispatch::IntegrationTest
     ids = response.parsed_body["data"].map { |u| u["id"] }
     assert_includes(ids, users(:alice).id.to_s)
     assert_includes(ids, users(:bob).id.to_s)
-    assert_not_includes(ids, users(:carol).id)
+    assert_not_includes(ids, users(:carol).id.to_s)
     assert_response :success
   end
 

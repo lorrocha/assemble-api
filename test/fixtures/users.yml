@@ -18,3 +18,8 @@ carol:
   email: carol@example.com
   profile_text: "This is Carol's profile"
   teams: [two]
+
+steve:
+  email: stevo@example.com
+  profile_text: "Im a cool dude, dude"
+  teams: [one, two]

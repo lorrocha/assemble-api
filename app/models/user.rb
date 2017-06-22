@@ -27,6 +27,10 @@ class User < ApplicationRecord
     alerts.where(id: alert.id).present?
   end
 
+  def has_team?(team)
+    teams.where(id: team.id).present?
+  end
+
   private
 
   def generate_authentication_token
